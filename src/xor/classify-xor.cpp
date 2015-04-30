@@ -1,6 +1,12 @@
-// This program classifies an image using a network and a trained model
+// The MIT License (MIT)
+//
+// Copyright (c) 2015 Boaz Stolk
+//
+// For full license view project root directory
+
+// This program classifies two values using a network and a trained model
 // Usage:
-//  classify_xor [FLAGS] NET MODEL VAL1 VAL2
+//  classify-xor [FLAGS] NET MODEL VALUE1 VALUE2
 //
 
 #include <boost/scoped_ptr.hpp>
@@ -22,12 +28,12 @@ main(int argc, char* argv[])
 
   gflags::SetUsageMessage("Classifies two values using a network and a trained model\n"
                           "Usage:\n"
-                          " classify_xor NET MODEL VAL1 VAL2\n");
+                          " classify-xor NET MODEL VALUE1 VALUE2\n");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   if (argc != 5)
   {
-    gflags::ShowUsageWithFlagsRestrict(argv[0], "tools/classify_xor");
+    gflags::ShowUsageWithFlagsRestrict(argv[0], "classify-xor");
     return 1;
   }
 
