@@ -7,8 +7,8 @@ Examples of how to use the Caffe framework with C++
     OpenCV >= 2.4
 
 ## Install
-From the caffe-cpp-examples root directory do a;
-
+    git clone git@github.com:boaz001/caffe-cpp-examples.git
+    cd caffe-cpp-examples
     mkdir build
     cd build
     cmake ..
