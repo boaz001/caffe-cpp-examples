@@ -7,7 +7,7 @@
 // This program generates random training data samples and puts it in
 // a database as serialized datum proto buffers.
 // Usage:
-//  generate-random-training-data [FLAGS] DB_NAME
+//  generate-random-training-data [FLAGS] NR_OF_SAMPLES DB_NAME
 //
 
 #include <gflags/gflags.h>
@@ -38,10 +38,10 @@ main(int argc, char* argv[])
   gflags::SetUsageMessage("Generates random training data samples and puts it in\n"
                           "the leveldb/lmdb format used as input for Caffe.\n"
                           "Usage:\n"
-                          " generate-random-training-data [FLAGS] DB_NAME\n");
+                          " generate-random-training-data [FLAGS] NR_OF_SAMPLES DB_NAME\n");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  if (argc != 2)
+  if (argc != 3)
   {
     gflags::ShowUsageWithFlagsRestrict(argv[0], "generate-random-training-data");
     return 1;
@@ -49,6 +49,8 @@ main(int argc, char* argv[])
 
   // seed random generator
   std::srand(std::time(NULL));
+
+  const int iNumberOfSamples = std::atoi(argv[1]);
 
   // generate random data
   typedef int tInput;
@@ -58,7 +60,7 @@ main(int argc, char* argv[])
   typedef std::vector<tSample> tSamples;
   tSamples samples;
   {
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < iNumberOfSamples; i++)
     {
       const double dRandom1 = (double)std::rand() / RAND_MAX;
       const double dRandom2 = (double)std::rand() / RAND_MAX;
@@ -79,13 +81,13 @@ main(int argc, char* argv[])
 
   // Create new train and test DB
   boost::scoped_ptr<caffe::db::DB> train_db(caffe::db::GetDB(FLAGS_backend));
-  std::string dbTrainName = argv[1];
+  std::string dbTrainName = argv[2];
   dbTrainName += "_train";
   train_db->Open(dbTrainName.c_str(), caffe::db::NEW);
   boost::scoped_ptr<caffe::db::Transaction> train_txn(train_db->NewTransaction());
 
   boost::scoped_ptr<caffe::db::DB> test_db(caffe::db::GetDB(FLAGS_backend));
-  std::string dbTestName = argv[1];
+  std::string dbTestName = argv[2];
   dbTestName += "_test";
   test_db->Open(dbTestName.c_str(), caffe::db::NEW);
   boost::scoped_ptr<caffe::db::Transaction> test_txn(test_db->NewTransaction());
@@ -95,7 +97,7 @@ main(int argc, char* argv[])
   int iNumberPutToTrain = 0;
   int iNumberPutToTest = 0;
   enum eNextSample {eNSTrain, eNSTest};
-  eNextSample nextSample = eNSTrain; // always start with train samples  
+  eNextSample nextSample = eNSTrain; // always start with train samples
 
   // convert samples to caffe::Datum
   int iCount = 0, iCountTrain = 0, iCountTest = 0;
