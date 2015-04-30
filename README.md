@@ -17,4 +17,4 @@ From the caffe-cpp-examples root directory do a;
 Now you can navigate to a example in the ```src``` directory and follow the instructions in each README.md
 
 ## License
-MIT (see LICENCE for details)
+MIT (see LICENSE for details)
