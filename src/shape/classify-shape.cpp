@@ -110,7 +110,9 @@ main(int argc, char* argv[])
     cv::Mat out_image_bgr = cv::Mat::zeros(in_image.size(), CV_8UC3);
 
     // create output
-    long iProcessedPixels = 0, iCorrectPixels = 0;
+    long iProcessedPixels = 0;
+    long iPixelsClass0 = 0, iPixelsClass1 = 0, iPixelsClass2 = 0;
+    long iCorrectPixelsClass0 = 0, iCorrectPixelsClass1 = 0, iCorrectPixelsClass2 = 0;
     const int kernel = 15;
     const int h_kernel = kernel / 2;
     for (int y = h_kernel; y < in_image.rows - h_kernel - 1; y++)
@@ -123,7 +125,16 @@ main(int argc, char* argv[])
 
       for (int x = h_kernel; x < in_image.cols - h_kernel - 1; x++)
       {
+        // keep track of some counts for statistics
         iProcessedPixels++;
+        if (in_image_bgr.at<cv::Vec3b>(y, x) == cv::Vec3b(0, 0, 0))
+          iPixelsClass0++;
+        else if (in_image_bgr.at<cv::Vec3b>(y, x) == cv::Vec3b(0, 255, 0))
+          iPixelsClass1++;
+        else if (in_image_bgr.at<cv::Vec3b>(y, x) == cv::Vec3b(0, 0, 255))
+          iPixelsClass2++;
+
+        // create data
         const cv::Vec3b vec = in_image.at<cv::Vec3b>(y, x);
         for (int yk = y - h_kernel; yk < y + h_kernel + 1; yk++)
         {
@@ -172,17 +183,17 @@ main(int argc, char* argv[])
           case 0: // class 0: background
             out_image_bgr.at<cv::Vec3b>(y, x) = cv::Vec3b(0, 0, 0);
             if (out_image_bgr.at<cv::Vec3b>(y, x) == in_image_bgr.at<cv::Vec3b>(y, x))
-              iCorrectPixels++;
+              iCorrectPixelsClass0++;
             break;
           case 1: // class 1: circle
             out_image_bgr.at<cv::Vec3b>(y, x) = cv::Vec3b(0, 255, 0);
             if (out_image_bgr.at<cv::Vec3b>(y, x) == in_image_bgr.at<cv::Vec3b>(y, x))
-              iCorrectPixels++;
+              iCorrectPixelsClass1++;
             break;
           case 2: // class 2: square
             out_image_bgr.at<cv::Vec3b>(y, x) = cv::Vec3b(0, 0, 255);
             if (out_image_bgr.at<cv::Vec3b>(y, x) == in_image_bgr.at<cv::Vec3b>(y, x))
-              iCorrectPixels++;
+              iCorrectPixelsClass2++;
             break;
           default:
             break;
@@ -190,7 +201,12 @@ main(int argc, char* argv[])
       }
     }
 
-    std::cout << "classified " << static_cast<double>(iCorrectPixels) / iProcessedPixels << "% correctly" << std::endl;
+    std::cout << "classified " << static_cast<double>(iCorrectPixelsClass0) / iPixelsClass0 * 100 << "% correctly in class 0" << std::endl;
+    std::cout << "classified " << static_cast<double>(iCorrectPixelsClass1) / iPixelsClass1 * 100 << "% correctly in class 1" << std::endl;
+    std::cout << "classified " << static_cast<double>(iCorrectPixelsClass2) / iPixelsClass2 * 100 << "% correctly in class 2" << std::endl;
+    std::cout << "classified " <<
+      static_cast<double>(iCorrectPixelsClass0 + iCorrectPixelsClass1 + iCorrectPixelsClass2) / iProcessedPixels * 100
+      << "% in total correctly" << std::endl;
 
     cv::namedWindow("result", CV_WINDOW_AUTOSIZE);
     cv::moveWindow("result", 240, 20);
