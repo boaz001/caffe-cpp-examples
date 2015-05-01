@@ -7,12 +7,14 @@ Train a network with random generated XOR data and classify with the trained mod
 This default generate script has generated 1000 random generate XOR samples and put those in two LMDB databases ```xor_lmdb_train``` and ```xor_lmdb_test``` equally divided so 500 samples in each.
 
 Possible values for the samples are the XOR function, which looks like:
+
 | In1 | In2 | Out |
 |-----|-----|-----|
 |  0  |  0  |  0  |
 |  0  |  1  |  1  |
 |  1  |  0  |  1  |
 |  1  |  1  |  0  |
+
 Where Out is the same as the label
 
 ## Train the network
