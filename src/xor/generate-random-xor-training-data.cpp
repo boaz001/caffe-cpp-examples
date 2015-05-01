@@ -7,7 +7,7 @@
 // This program generates random training data samples and puts it in
 // a database as serialized datum proto buffers.
 // Usage:
-//  generate-random-training-data [FLAGS] NR_OF_SAMPLES DB_NAME
+//  generate-random-xor-training-data [FLAGS] NR_OF_SAMPLES DB_NAME
 //
 
 #include <gflags/gflags.h>
@@ -38,12 +38,12 @@ main(int argc, char* argv[])
   gflags::SetUsageMessage("Generates random training data samples and puts it in\n"
                           "the leveldb/lmdb format used as input for Caffe.\n"
                           "Usage:\n"
-                          " generate-random-training-data [FLAGS] NR_OF_SAMPLES DB_NAME\n");
+                          " generate-random-xor-training-data [FLAGS] NR_OF_SAMPLES DB_NAME\n");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   if (argc != 3)
   {
-    gflags::ShowUsageWithFlagsRestrict(argv[0], "generate-random-training-data");
+    gflags::ShowUsageWithFlagsRestrict(argv[0], "generate-random-xor-training-data");
     return 1;
   }
 
