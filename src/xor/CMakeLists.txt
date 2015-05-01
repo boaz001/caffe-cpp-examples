@@ -8,7 +8,4 @@ foreach(source ${srcs})
   # target
   add_executable(${name} ${source})
   target_link_libraries(${name} ${Caffe_LIBRARIES})
-
-  # Install
-  install(TARGETS ${name} DESTINATION bin)
 endforeach(source)
