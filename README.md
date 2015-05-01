@@ -16,5 +16,9 @@ Examples of how to use the Caffe framework with C++
 
 Now you can navigate to a example in the ```src``` directory and follow the instructions in each README.md
 
+## Notes
+The source of some examples are derived from the caffe tools.
+It was never my intent to write super efficient code but rather some small simple examples of how to use Caffe in C++.
+
 ## License
 MIT (see LICENSE for details)
