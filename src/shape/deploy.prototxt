@@ -1,0 +1,63 @@
+name: "CaffeNet"
+input: "data"
+input_shape {
+  dim: 186 # 1 row is 200 - 2 * h_kernel
+  dim: 225
+}
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "data"
+  top: "ip1"
+  inner_product_param {
+    num_output: 96
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "sig1"
+  type: "Sigmoid"
+  bottom: "ip1"
+  top: "sig1"
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "sig1"
+  top: "ip2"
+  inner_product_param {
+    num_output: 32
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "sig2"
+  type: "Sigmoid"
+  bottom: "ip2"
+  top: "sig2"
+}
+layer {
+  name: "ip3"
+  type: "InnerProduct"
+  bottom: "sig2"
+  top: "ip3"
+  inner_product_param {
+    num_output: 3
+  }
+}
+layer {
+  name: "prob1"
+  type: "Softmax"
+  bottom: "ip3"
+  top: "prob1"
+}

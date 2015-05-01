@@ -6,3 +6,4 @@ include_directories(${Caffe_INCLUDE_DIRS})
 add_definitions(${Caffe_DEFINITIONS}) # ex. -DCPU_ONLY
 
 add_subdirectory(src/xor)
+add_subdirectory(src/shape)

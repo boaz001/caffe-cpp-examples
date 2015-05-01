@@ -1,0 +1,94 @@
+name: "CaffeNet"
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  data_param {
+    source: "shape_lmdb_train"
+    batch_size: 220
+    backend: LMDB
+  }
+}
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TEST
+  }
+  data_param {
+    source: "shape_lmdb_test"
+    batch_size: 220
+    backend: LMDB
+  }
+}
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "data"
+  top: "ip1"
+  inner_product_param {
+    num_output: 96
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "sig1"
+  type: "Sigmoid"
+  bottom: "ip1"
+  top: "sig1"
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "sig1"
+  top: "ip2"
+  inner_product_param {
+    num_output: 32
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "sig2"
+  type: "Sigmoid"
+  bottom: "ip2"
+  top: "sig2"
+}
+layer {
+  name: "ip3"
+  type: "InnerProduct"
+  bottom: "sig2"
+  top: "ip3"
+  inner_product_param {
+    num_output: 3
+  }
+}
+layer {
+  name: "prob1"
+  type: "SoftmaxWithLoss"
+  bottom: "ip3"
+  bottom: "label"
+  top: "prob1"
+}
+layer {
+  name: "accuracy"
+  type: "Accuracy"
+  bottom: "ip3"
+  bottom: "label"
+  top: "accuracy"
+}
