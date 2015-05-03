@@ -16,4 +16,4 @@ In the end it should give a accuracy of 1 and the loss should minimize to a real
 ## Classify some data with the trained model
     ./classify.sh
 
-This default classification script classifies a random generated image with squares and circles, using the trained model and shows the classification result image and the classification error percentage.
+This default classification script classifies a random generated image with squares and circles, using the trained model and the network from deploy.prototxt and shows the classification result image and the classification error percentage.

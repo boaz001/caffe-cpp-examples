@@ -6,10 +6,9 @@
 
 // This program classifies two values using a network and a trained model
 // Usage:
-//  classify-xor [FLAGS] NET MODEL VALUE1 VALUE2
+//  classify-xor NET MODEL VALUE1 VALUE2
 //
 
-#include <boost/scoped_ptr.hpp>
 #include <gflags/gflags.h>
 #include <caffe/util/db.hpp>
 #include <caffe/caffe.hpp>

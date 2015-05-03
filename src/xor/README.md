@@ -26,4 +26,4 @@ In the end it should give a accuracy of 1 and the loss should minimize to a real
 ## Classify some data with the trained model
     ./classify.sh
 
-This default classification script classifies all four possible Input combinations (see table above) using the trained model and shows the values and if it was classified correctly (all should be GOOD of course).
+This default classification script classifies all four possible Input combinations (see table above) using the trained model and the network from deploy.prototxt and shows the values and if it was classified correctly (all should be GOOD of course).
