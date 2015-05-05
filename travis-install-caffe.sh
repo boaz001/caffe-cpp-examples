@@ -6,8 +6,7 @@ cd caffe
 
 # This script must be run with sudo.
 set -e
-
-MAKE="make --jobs=$NUM_THREADS"
+MAKE="make --jobs=4"
 
 # Install apt packages where the Ubuntu 12.04 default and ppa works for Caffe
 
