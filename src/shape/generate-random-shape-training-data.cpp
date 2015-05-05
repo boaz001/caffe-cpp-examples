@@ -98,7 +98,6 @@ main(int argc, char* argv[])
     }
 
     cv::namedWindow("in_image_bgr", CV_WINDOW_AUTOSIZE);
-    cv::moveWindow("in_image_bgr", 20, 20);
     cv::imshow("in_image_bgr", in_image_bgr);
 
     std::cout << "generating training data from image..." << std::endl;

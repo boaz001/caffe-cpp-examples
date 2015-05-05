@@ -69,8 +69,9 @@ pip install protobuf
 #rm /home/travis/miniconda/lib/libm.*
 
 pushd .
-git clone https://github.com/BVLC/caffe.git caffe
-cd caffe
+cd ../..
+git clone https://github.com/BVLC/caffe.git BVLC/caffe
+cd BVLC/caffe
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DBUILD_python=OFF -DCMAKE_BUILD_TYPE=Release -DCPU_ONLY=ON ..
