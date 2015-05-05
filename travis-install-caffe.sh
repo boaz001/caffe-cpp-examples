@@ -12,12 +12,16 @@ apt-get -y update
 apt-get install \
     wget git curl \
     python-dev python-numpy \
-    libleveldb-dev libsnappy-dev libopencv-dev \
+    libleveldb-dev libsnappy-dev \
     libboost-dev libboost-system-dev libboost-python-dev libboost-thread-dev \
     libprotobuf-dev protobuf-compiler \
     libatlas-dev libatlas-base-dev \
     libhdf5-serial-dev libgflags-dev libgoogle-glog-dev \
     bc
+
+add-apt-repository -y ppa:kubuntu-ppa/backports
+sudo apt-get update
+apt-get install libopencv-dev
 
 # Add a special apt-repository to install CMake 2.8.9 for CMake Caffe build,
 # if needed.  By default, Aptitude in Ubuntu 12.04 installs CMake 2.8.7, but

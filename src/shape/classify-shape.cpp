@@ -93,6 +93,7 @@ main(int argc, char* argv[])
 
   // show input
   cv::namedWindow("in", CV_WINDOW_AUTOSIZE);
+  cv::moveWindow("in", 20, 20);
   cv::imshow("in", in_image);
 
   // create output image
@@ -199,6 +200,7 @@ main(int argc, char* argv[])
     << "% in total correctly" << std::endl;
 
   cv::namedWindow("result", CV_WINDOW_AUTOSIZE);
+  cv::moveWindow("result", 240, 20);
   cv::imshow("result", out_image_bgr);
   cv::waitKey(0);
 
