@@ -1,9 +1,5 @@
 #!/bin/bash
 
-cd ..
-git clone https://github.com/BVLC/caffe.git caffe
-cd caffe
-
 # This script must be run with sudo.
 set -e
 MAKE="make --jobs=4"
@@ -70,10 +66,13 @@ export PATH=/home/travis/miniconda/bin:$PATH
 conda update --yes conda
 conda install --yes numpy scipy matplotlib scikit-image pip
 pip install protobuf
-rm /home/travis/miniconda/lib/libm.*
+#rm /home/travis/miniconda/lib/libm.*
 
+pushd .
+git clone https://github.com/BVLC/caffe.git caffe
+cd caffe
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DBUILD_python=ON -DCMAKE_BUILD_TYPE=Release -DCPU_ONLY=ON ..
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DBUILD_python=OFF -DCMAKE_BUILD_TYPE=Release -DCPU_ONLY=ON ..
 make install
-cd ../..
+popd
