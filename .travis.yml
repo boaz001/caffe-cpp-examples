@@ -5,7 +5,6 @@ language: cpp
 
 compiler:
  - gcc
- - clang
 
 install:
  - sudo -E ./travis-install-caffe.sh
