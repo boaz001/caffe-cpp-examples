@@ -1,7 +1,5 @@
 env:
-  global:
-   - WITH_CUDA=false
-   - WITH_CMAKE=true
+ - WITH_CMAKE=true
 
 language: cpp
 
