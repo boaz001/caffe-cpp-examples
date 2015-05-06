@@ -23,7 +23,7 @@
 
 // define gflags FLAGS and default values
 DEFINE_string(backend, "lmdb", "The backend {lmdb, leveldb} for storing the result");
-DEFINE_int32(split, 1, "Number of samples {nr} used for TRAIN before a sample is used for TEST, use negative value to do the inverse");
+DEFINE_int32(split, 1, "Number of samples {nr} used for TRAIN before a sample is used for TEST, use negative value to do the opposite");
 DEFINE_bool(shuffle, true, "Randomly shuffle the order of samples");
 
 int

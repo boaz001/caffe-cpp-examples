@@ -40,7 +40,6 @@ main(int argc, char* argv[])
   const std::string sNetwork = argv[1];
   std::cout << "loading " << sNetwork << std::endl;
   caffe::Net<float> caffe_test_net(sNetwork, caffe::TEST);
-  caffe_test_net.set_debug_info(true);
 
   // get trained model
   const std::string sModel = argv[2];

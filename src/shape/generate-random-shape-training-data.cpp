@@ -26,7 +26,7 @@
 
 // define gflags FLAGS and default values
 DEFINE_string(backend, "lmdb", "The backend {lmdb, leveldb} for storing the result");
-DEFINE_int32(split, 1, "Number of samples {nr} used for TRAIN before a sample is used for TEST, use negative value to do the inverse");
+DEFINE_int32(split, 1, "Number of samples {nr} used for TRAIN before a sample is used for TEST, use negative value to do the opposite");
 DEFINE_bool(shuffle, true, "Randomly shuffle the order of samples");
 DEFINE_bool(balance, false, "Create a balanced set");
 
@@ -68,7 +68,7 @@ main(int argc, char* argv[])
     const int cols = 200;
     cv::Mat in_image_bgr = cv::Mat::zeros(rows, cols, CV_8UC3);
 
-    // rectangle (red)
+    // square (red)
     for (int i = 0; i < 3; i++)
     {
       const int x1 = std::min(std::max(((float)std::rand() / RAND_MAX) * in_image_bgr.cols, (float)20), (float)rows-20);
@@ -106,7 +106,7 @@ main(int argc, char* argv[])
     // generate training data from input image
     const int kernel = 15;
     const int h_kernel = kernel / 2;
-    int iPatternCount = 0;
+    int iBackgroundCount = 0;
     for (int y = h_kernel; y < in_image_bgr.rows - h_kernel - 1; y++)
     {
       for (int x = h_kernel; x < in_image_bgr.cols - h_kernel - 1; x++)
@@ -150,7 +150,7 @@ main(int argc, char* argv[])
         {
           // if balance is true, the background samples that are added are mostly around the
           // squares and circles and some (but not all) others
-          if (FLAGS_balance == true) 
+          if (FLAGS_balance == true)
           {
             bool bHasNeighbourObject = false;
             const cv::Vec3b vec_h1 = in_image_bgr.at<cv::Vec3b>(y, x-1);
@@ -163,9 +163,9 @@ main(int argc, char* argv[])
               bHasNeighbourObject = true;
             }
 
-            iPatternCount++;
+            iBackgroundCount++;
             // only take a part of the background and when background is near objects
-            if (bHasNeighbourObject == false && iPatternCount % 50 != 0)
+            if (bHasNeighbourObject == false && iBackgroundCount % 50 != 0)
               continue;
           }
           const tLabel label = 0;

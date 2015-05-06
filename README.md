@@ -3,7 +3,7 @@ Examples of how to use the Caffe framework with C++
 
 ## Requires
     cmake >= 2.8.8
-    Caffe
+    Caffe (built with cmake and make install'ed. If in doubt, I used [this](https://github.com/BVLC/caffe/pull/1667)
     OpenCV >= 2.4
 
 ## Install

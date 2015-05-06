@@ -42,7 +42,6 @@ main(int argc, char* argv[])
   const std::string sNetwork = argv[1];
   std::cout << "loading " << sNetwork << std::endl;
   caffe::Net<float> caffe_test_net(sNetwork, caffe::TEST);
-  caffe_test_net.set_debug_info(true);
 
   // get trained model
   const std::string sModel = argv[2];
@@ -57,7 +56,7 @@ main(int argc, char* argv[])
   const int cols = 200;
   cv::Mat in_image_bgr = cv::Mat::zeros(rows, cols, CV_8UC3);
 
-  // 3 rectangles (red)
+  // 3 squares (red)
   for (int i = 0; i < 3; i++)
   {
     const int x1 = std::min(std::max(((float)std::rand() / RAND_MAX) * in_image_bgr.cols, (float)20), (float)rows-20);
@@ -99,6 +98,9 @@ main(int argc, char* argv[])
   // create output image
   cv::Mat out_image_bgr = cv::Mat::zeros(in_image.size(), CV_8UC3);
 
+  // three outputs; either 0 (background), 1 (circle) or 2 (square)
+  const int iNumOfOutputs = 3;
+
   // create network input data
   long iProcessedPixels = 0;
   long iPixelsClass0 = 0, iPixelsClass1 = 0, iPixelsClass2 = 0;
@@ -117,15 +119,15 @@ main(int argc, char* argv[])
     {
       // keep track of some counts for statistics
       iProcessedPixels++;
-      if (in_image_bgr.at<cv::Vec3b>(y, x) == cv::Vec3b(0, 0, 0))
+      const cv::Vec3b color = in_image.at<cv::Vec3b>(y, x);
+      if (color == cv::Vec3b(0, 0, 0))
         iPixelsClass0++;
-      else if (in_image_bgr.at<cv::Vec3b>(y, x) == cv::Vec3b(0, 255, 0))
+      else if (color == cv::Vec3b(0, 255, 0))
         iPixelsClass1++;
-      else if (in_image_bgr.at<cv::Vec3b>(y, x) == cv::Vec3b(0, 0, 255))
+      else if (color == cv::Vec3b(0, 0, 255))
         iPixelsClass2++;
 
       // create data
-      const cv::Vec3b vec = in_image.at<cv::Vec3b>(y, x);
       for (int yk = y - h_kernel; yk < y + h_kernel + 1; yk++)
       {
         for (int xk = x - h_kernel; xk < x + h_kernel + 1; xk++)
@@ -159,9 +161,9 @@ main(int argc, char* argv[])
       // find maximum
       float max = -1;
       int max_i = -1;
-      for (int i = 0; i < 3; ++i)
+      for (int i = 0; i < iNumOfOutputs; ++i)
       {
-        const float value = (result[0]->cpu_data())[i + batch * 3];
+        const float value = (result[0]->cpu_data())[i + batch * iNumOfOutputs];
         if (value > max)
         {
           max = value;
@@ -169,6 +171,7 @@ main(int argc, char* argv[])
         }
       }
 
+      // draw classification result in output image
       switch (max_i)
       {
         case 0: // class 0: background
