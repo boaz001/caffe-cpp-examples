@@ -1,0 +1,16 @@
+env:
+ - WITH_CMAKE=true
+
+language: cpp
+
+compiler:
+ - gcc
+
+install:
+ - sudo -E ./travis-install-caffe.sh
+
+script:
+ - mkdir build
+ - cd build
+ - cmake ..
+ - make

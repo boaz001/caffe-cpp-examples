@@ -1,4 +1,4 @@
-# caffe-cpp-examples
+# caffe-cpp-examples [![Build Status](https://travis-ci.org/boaz001/caffe-cpp-examples.svg?branch=master)](https://travis-ci.org/boaz001/caffe-cpp-examples)
 Examples of how to use the Caffe framework with C++
 
 ## Requires
