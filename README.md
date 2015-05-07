@@ -3,8 +3,9 @@ Examples of how to use the Caffe framework with C++
 
 ## Requires
     cmake >= 2.8.8
-    Caffe (built with cmake and make install'ed. If in doubt, I used [this](https://github.com/BVLC/caffe/pull/1667)
+    Caffe
     OpenCV >= 2.4
+Note: Since there is no pre-build Caffe package (yet) Caffe must be built with cmake and ```make install```'ed. If in doubt; [This](https://github.com/BVLC/caffe/pull/1667) is what I used.
 
 ## Install
     git clone git@github.com:boaz001/caffe-cpp-examples.git
