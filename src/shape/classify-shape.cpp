@@ -119,7 +119,7 @@ main(int argc, char* argv[])
     {
       // keep track of some counts for statistics
       iProcessedPixels++;
-      const cv::Vec3b color = in_image.at<cv::Vec3b>(y, x);
+      const cv::Vec3b color = in_image_bgr.at<cv::Vec3b>(y, x);
       if (color == cv::Vec3b(0, 0, 0))
         iPixelsClass0++;
       else if (color == cv::Vec3b(0, 255, 0))
