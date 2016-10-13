@@ -1,3 +1,5 @@
+sudo: required
+
 env:
   global:
     - NUM_THREADS=4
