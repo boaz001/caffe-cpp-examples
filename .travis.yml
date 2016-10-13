@@ -10,7 +10,7 @@ language: cpp
 
 compiler:
   - gcc
-  # - clang
+  - clang
 
 cache:
   apt: true
@@ -38,3 +38,9 @@ script:
   - mkdir build && cd build
   - cmake ..
   - make
+
+after_success:
+  - cd src/xor/
+  - ./generate.sh
+  - ./train.sh
+  - ./classify.sh
