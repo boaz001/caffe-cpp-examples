@@ -1,3 +1,4 @@
+dist: trusty
 sudo: required
 
 env:
@@ -17,8 +18,8 @@ cache:
     - ~/protobuf3
 
 before_install:
-  - git clone https://github.com/BVLC/caffe.git caffe
   - pushd .
+  - git clone https://github.com/BVLC/caffe.git caffe
   - cd caffe/
   - source ./scripts/travis/defaults.sh
 
