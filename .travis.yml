@@ -32,6 +32,8 @@ install:
 before_script:
   - ./scripts/travis/configure.sh
   - ./scripts/travis/build.sh
+  - make install
+  - export PATH="$PWD/tools:$PWD/lib:$PATH"
 
 script:
   - popd
