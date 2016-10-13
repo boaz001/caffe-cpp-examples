@@ -17,7 +17,7 @@ cache:
     - ~/protobuf3
 
 before_install:
-  - ./get-caffe.sh
+  - git clone https://github.com/BVLC/caffe.git caffe
   - pushd .
   - cd caffe/
   - source ./scripts/travis/defaults.sh
