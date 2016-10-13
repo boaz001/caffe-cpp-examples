@@ -107,9 +107,9 @@ main(int argc, char* argv[])
     const int kernel = 15;
     const int h_kernel = kernel / 2;
     int iBackgroundCount = 0;
-    for (int y = h_kernel; y < in_image_bgr.rows - h_kernel - 1; y++)
+    for (int y = h_kernel; y < in_image_bgr.rows - h_kernel; y++)
     {
-      for (int x = h_kernel; x < in_image_bgr.cols - h_kernel - 1; x++)
+      for (int x = h_kernel; x < in_image_bgr.cols - h_kernel; x++)
       {
         const cv::Vec3b vec = in_image_bgr.at<cv::Vec3b>(y, x);
         if (vec[1] > 0) // circle

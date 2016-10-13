@@ -107,7 +107,7 @@ main(int argc, char* argv[])
   long iCorrectPixelsClass0 = 0, iCorrectPixelsClass1 = 0, iCorrectPixelsClass2 = 0;
   const int kernel = 15;
   const int h_kernel = kernel / 2;
-  for (int y = h_kernel; y < in_image.rows - h_kernel - 1; y++)
+  for (int y = h_kernel; y < in_image.rows - h_kernel; y++)
   {
     // create input blob for a whole line which is much faster (instead of a classification per pixel)
     caffe::BlobProto blob_proto;
@@ -115,7 +115,7 @@ main(int argc, char* argv[])
     shape->add_dim(cols - 2 * h_kernel);
     shape->add_dim(kernel * kernel);
 
-    for (int x = h_kernel; x < in_image.cols - h_kernel - 1; x++)
+    for (int x = h_kernel; x < in_image.cols - h_kernel; x++)
     {
       // keep track of some counts for statistics
       iProcessedPixels++;
