@@ -1,16 +1,37 @@
 env:
- - WITH_CMAKE=true
+  global:
+    - NUM_THREADS=4
+    - WITH_CMAKE=true
 
 language: cpp
 
 compiler:
- - gcc
+  - gcc
+  # - clang
+
+cache:
+  apt: true
+  directories:
+    - ~/protobuf3
+
+before_install:
+  - ./get-caffe.sh
+  - pushd .
+  - cd caffe/
+  - source ./scripts/travis/defaults.sh
 
 install:
- - sudo -E ./travis-install-caffe.sh
+  - sudo -E ./scripts/travis/install-deps.sh
+  - ./scripts/travis/setup-venv.sh ~/venv
+  - source ~/venv/bin/activate
+  - ./scripts/travis/install-python-deps.sh
+
+before_script:
+  - ./scripts/travis/configure.sh
+  - ./scripts/travis/build.sh
 
 script:
- - mkdir build
- - cd build
- - cmake ..
- - make
+  - popd
+  - mkdir build && cd build
+  - cmake ..
+  - make
